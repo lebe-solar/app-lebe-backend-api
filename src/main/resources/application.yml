@@ -1,0 +1,60 @@
+solar:
+  order:
+    maps:
+      client:
+        key: 
+        url: 
+    crm:
+      client:
+        sevDesk: 
+        lebe: 
+                
+spring:
+  application:
+    name: app-lebe-backend-api
+  cloud:
+    azure:
+      cosmos:
+        database: 
+        endpoint: 
+        key: 
+        populate-query-metrics: true
+  mail:
+    username: 
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+        
+feign:
+  hystrix:
+    enabled: false
+  client:
+    config:
+      sevDeskFactoryClient:
+        requestInterceptors:
+          - de.lebe.backend.sevdesk.api.ApiKeyRequestInterceptor
+        loggerLevel: FULL
+      sevDeskBaseDataClient:
+        requestInterceptors:
+          - de.lebe.backend.sevdesk.api.ApiKeyRequestInterceptor
+        loggerLevel: FULL
+      sevDeskContactClient:
+        requestInterceptors:
+          - de.lebe.backend.sevdesk.api.ApiKeyRequestInterceptor
+        loggerLevel: FULL
+      default:
+        requestInterceptors:
+          - de.lebe.backend.sevdesk.api.ApiKeyRequestInterceptor
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: FULL
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE

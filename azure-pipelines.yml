@@ -1,0 +1,26 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'complete/pom.xml'
+- task: AzureSpringCloud@0
+  inputs:
+    azureSubscription: 'Azure subscription LeBe(ce7ccbe4-6bb1-42bd-8fcd-1dd7a85670db)'
+    Action: 'Deploy'
+    AzureSpringCloud: 'app-lebe-backend-api'
+    AppName: 'lebe-backend'
+    RuntimeVersion: 'Java_17'
+    DeploymentType: 'Artifacts'
+    UseStagingDeployment: false
+    DeploymentName: 'default'
+    Package: ./target/backend-0.0.1-SNAPSHOT.jar
