@@ -134,31 +134,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>com.microsoft.azure</groupId>
-				<artifactId>azure-spring-apps-maven-plugin</artifactId>
-				<version>1.19.0</version>
-				<configuration>
-					<subscriptionId>ce7ccbe4-6bb1-42bd-8fcd-1dd7a85670db</subscriptionId>
-					<resourceGroup>rg-lebe-prod-api</resourceGroup>
-					<clusterName>asa-lebe-prod-backend</clusterName>
-					<sku>Consumption</sku>
-					<appName>app-lebe-backend-api</appName>
-					<isPublic>true</isPublic>
-					<deployment>
-						<cpu>0.25</cpu>
-						<memoryInGB>0.5</memoryInGB>
-						<instanceCount>1</instanceCount>
-						<runtimeVersion>Java_17</runtimeVersion>
-						<resources>
-							<resource>
-								<directory>${project.basedir}/target</directory>
-								<includes>
-									<include>*.jar</include>
-								</includes>
-							</resource>
-						</resources>
-					</deployment>
-				</configuration>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
