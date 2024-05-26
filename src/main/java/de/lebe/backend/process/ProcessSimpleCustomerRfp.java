@@ -56,6 +56,13 @@ public class ProcessSimpleCustomerRfp {
 		mailService.sendRfpMailToBusiness(mRfP, address.getImage());
 	}
 	
+	public void rejectCustomerRfp(String identificationToken) {
+		String id = new String(Base64.getDecoder().decode(identificationToken));
+				
+		rpfRepository.deleteAll(rpfRepository.findAll(new PartitionKey(id)));
+	}
+	
+	
 	public MSubmissionResult approveCustomerRfp(String identificationToken) {
 		
 		String id = new String(Base64.getDecoder().decode(identificationToken));

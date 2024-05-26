@@ -42,4 +42,12 @@ public class ApiSimpleCustomerRfp {
 		return result;
 		
 	}
+	
+	@GetMapping("/advisor/rfp/reject")
+	public void rejectCustomerRfp(@RequestParam String approvalToken) {
+		
+		process.rejectCustomerRfp(approvalToken);
+		
+		return;
+	}
 }
