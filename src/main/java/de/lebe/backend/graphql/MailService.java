@@ -19,6 +19,7 @@ import com.microsoft.graph.serviceclient.GraphServiceClient;
 import com.microsoft.graph.users.item.sendmail.SendMailPostRequestBody;
 
 import de.lebe.backend.domain.MCustomerRfp;
+import de.lebe.backend.mapper.MCustomerRfpMapper;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -57,12 +58,13 @@ public class MailService {
 	 */
 	public void sendRfpMailToBusiness(MCustomerRfp customerRfp, byte[] houseImage) {
 		log.info("Sending RFP mail to business");
+		String id = MCustomerRfpMapper.getPartionKey(customerRfp);
 
 		Context context = new Context();
 		context.setVariable("acceptUrl",
-				"http://localhost:8080/ext/advisor/rfp/approve?approvalToken=" + customerRfp.getTechnicalId());
+				"http://localhost:8080/advisor/rfp/approve?approvalToken=" + id);
 		context.setVariable("rejectUrl",
-				"http://localhost:8080/ext/advisor/rfp/reject?approvalToken=" + customerRfp.getTechnicalId());
+				"http://localhost:8080/advisor/rfp/reject?approvalToken=" + id);
 
 		context.setVariable("header",
 				customerRfp.getCustomer().getName() + " " + customerRfp.getCustomer().getLastname());
