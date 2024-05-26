@@ -19,7 +19,7 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                 authorizationManagerRequestMatcherRegistry
-                    .requestMatchers("/customer/**","/customer/*", "/actuator/**").permitAll()  // Allow access without authentication
+                    .requestMatchers("/customer/**","/customer/*", "/actuator/**", "/actuator/*").permitAll()  // Allow access without authentication
                     .requestMatchers("/advisor/**").authenticated()  // Require authentication for /advisor/**
                     .anyRequest().authenticated()  // All other requests need authentication
             )
