@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F1F0EC;
+            color: #3C3C3B;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #FFFFFF;
+            border: 1px solid #9FB2A1;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #9FB2A1;
+            padding: 10px;
+            border-radius: 0 0 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .question {
+		    background-color: #9FB2A1;
+		    padding: 10px;
+            border-radius: 0 0 10px 10px;
+		}
+		
+		.question p {
+		    margin: 0;
+		    padding: 5px 0;
+		}
+		
+		.question p.options {
+		    margin-top: 10px;
+		}
+        .header img {
+            width: 89.79px;
+            height: 91.03px;
+        }
+        .header .slogan {
+            color: #FFFFFF;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .customer-name {
+            background-color: #F1F0EC;
+            padding: 10px;
+            border-radius: 0 0 0 0;
+        }
+        h2 {
+            margin: 0;
+        }
+        p, ul {
+            line-height: 1.6;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        strong {
+            color: #3C3C3B;
+        }
+        a {
+            text-decoration: none;
+            color: #FFED00;
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #9FB2A1;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Users</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+    <div>
+        <div class="header">     
+            <img 
+            	src="data:image/png;base64,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" 
+            	alt="Firmenlogo"/>
+            	
+        </div>
+
+        <div th:switch="${rfps}" class="container my-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 th:case="null">Aktuell gibt es keine Kontaktanfragen!</h2>
+                    <div th:case="*">
+                        <h2 class="my-5">Kontaktanfragen</h2>
+                        <table class="table table-striped table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Datum</th>
+                                    <th>Details</th>
+                                    <th>Löschen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="rfp : ${rfps}">
+                                    <td th:text="${rfp.customer.lastname}"></td>
+                                    <td th:text="${rfp.customerEmail}"></td>
+                                    <td th:text="${rfp.submittionDate}"></td>
+                                    <td><a th:href="@{/details/{id}(id=${rfp.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
+                                    <td><a th:href="@{/reject/{id}(id=${rfp.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>      
+                    <p class="my-5"><a href="/signup" class="btn btn-primary"><i class="fas fa-user-plus ml-2"></i></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

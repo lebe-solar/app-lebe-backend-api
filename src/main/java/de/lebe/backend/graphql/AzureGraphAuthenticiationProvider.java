@@ -1,8 +1,11 @@
 package de.lebe.backend.graphql;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -10,10 +13,6 @@ import org.springframework.context.annotation.Configuration;
 
 import com.azure.identity.ClientCertificateCredential;
 import com.azure.identity.ClientCertificateCredentialBuilder;
-import com.azure.identity.DefaultAzureCredentialBuilder;
-import com.azure.security.keyvault.certificates.CertificateClient;
-import com.azure.security.keyvault.certificates.CertificateClientBuilder;
-import com.azure.security.keyvault.certificates.models.KeyVaultCertificateWithPolicy;
 import com.microsoft.graph.serviceclient.GraphServiceClient;
 
 @Configuration
@@ -25,25 +24,20 @@ public class AzureGraphAuthenticiationProvider {
 	@Value("${azure-tenant-id:0b0e365f-09be-4291-8f1f-082f5929872d}")
 	private String tenantId;
 	
+	@Value("${graphql-ca}")
+	private String certificate;
+	
 	
 	@Value("${spring.cloud.azure.keyvault.secret.endpoint}")
     private String keyVaultUri;
 	
-
 	@Bean
-	public GraphServiceClient getClient() throws FileNotFoundException {
-		
-		CertificateClient client = new CertificateClientBuilder()
-                .vaultUrl(keyVaultUri)
-                .credential(new DefaultAzureCredentialBuilder().build())
-                .buildClient();
-
+	public GraphServiceClient getClient() throws Exception {
 		final String[] scopes = new String[] {"https://graph.microsoft.com/.default"};
 
-		KeyVaultCertificateWithPolicy certificate = client.getCertificate("lebe-azure-client-ca");
-        byte[] pfxData = certificate.getCer();
-        InputStream certStream = new ByteArrayInputStream(pfxData);
-		
+        String pemCert = certificate;
+        InputStream certStream = new ByteArrayInputStream(pemCert.getBytes(StandardCharsets.UTF_8));
+
 		final ClientCertificateCredential credential = new ClientCertificateCredentialBuilder()
 			    .clientId(clientId).tenantId(tenantId)
 			    .pemCertificate(certStream)
@@ -56,5 +50,13 @@ public class AzureGraphAuthenticiationProvider {
 		
 		return new GraphServiceClient(credential, scopes);
 		
+	}
+	
+	public String convertDERtoPEM(byte[] certBytes) throws Exception {
+	    CertificateFactory factory = CertificateFactory.getInstance("X.509");
+	    X509Certificate certificate = (X509Certificate) factory.generateCertificate(new ByteArrayInputStream(certBytes));
+	    Base64.Encoder encoder = Base64.getMimeEncoder(64, "\n".getBytes());
+	    String encodedCertText = new String(encoder.encode(certificate.getEncoded()));
+	    return "-----BEGIN CERTIFICATE-----\n" + encodedCertText + "-----END CERTIFICATE-----\n";
 	}
 }
