@@ -73,6 +73,12 @@
 			<artifactId>guava</artifactId>
 			<version>31.0.1-jre</version>
 		</dependency>
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>7.0.1</version> <!-- Stellen Sie sicher, dass Sie die
+			neueste verfügbare Version verwenden -->
+		</dependency>
 
 
 		<dependency>
