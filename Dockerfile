@@ -14,5 +14,5 @@ RUN ./mvnw package -DskipTests
 # Runtime stage
 FROM mcr.microsoft.com/openjdk/jdk:17-mariner
 COPY --from=build /app/target/app-lebe-backend-api-0.0.1-SNAPSHOT.jar /usr/src/myapp/app.jar
-EXPOSE 8080
-CMD ["java", "-jar", "/usr/src/myapp/app.jar"]
+EXPOSE 80
+CMD ["java","-Dserver.port=80", "-jar", "/usr/src/myapp/app.jar"]
