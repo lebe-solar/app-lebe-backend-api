@@ -11,10 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class AddressBingService {
-	
+
 	@Value("${solar.order.maps.client.url}")
 	private String bingApiUrl;
-	
+
 	@Value("${solar.order.maps.client.key}")
 	private String bingApiKey;
 
@@ -64,8 +64,7 @@ public class AddressBingService {
 		int mapHeight = 350;
 
 		// URL für die Anfrage zusammenstellen
-		String apiUrl = String.format(
-				bingApiUrl+"/Imagery/Map/Aerial/%s,%s/%d?mapSize=%d,%d&format=jpeg&key=%s",
+		String apiUrl = String.format(bingApiUrl + "/Imagery/Map/Aerial/%s,%s/%d?mapSize=%d,%d&format=jpeg&key=%s",
 				latitude, longitude, zoomLevel, mapWidth, mapHeight, bingApiKey);
 
 		// RestTemplate erstellen
@@ -99,36 +98,40 @@ public class AddressBingService {
 	 * @return
 	 */
 	public Resource findFirstByAddress(String streetWithHnr, String city, String postalCode) {
-		// URL für die Anfrage zusammenstellen
-		String apiUrl = bingApiUrl+"/Locations/DE/"+postalCode+"/"+city+"/"+encodeUriComponent(streetWithHnr)+"?key="+bingApiKey;
+		try {
+			// URL für die Anfrage zusammenstellen
+			String apiUrl = bingApiUrl + "/Locations/DE/" + postalCode + "/" + city + "/"
+					+ encodeUriComponent(streetWithHnr) + "?key=" + bingApiKey;
 
-		// RestTemplate erstellen
-		RestTemplate restTemplate = new RestTemplate();
+			// RestTemplate erstellen
+			RestTemplate restTemplate = new RestTemplate();
 
-		// GET-Anfrage durchführen
-		ResponseEntity<BingMapsApiResponse> response = restTemplate.getForEntity(apiUrl,
-				BingMapsApiResponse.class);
+			// GET-Anfrage durchführen
+			ResponseEntity<BingMapsApiResponse> response = restTemplate.getForEntity(apiUrl, BingMapsApiResponse.class);
 
-		// Überprüfen, ob die Anfrage erfolgreich war (Statuscode 200)
-		if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-			// Die Antwort verarbeiten
-			BingMapsApiResponse responseBody = response.getBody();
+			// Überprüfen, ob die Anfrage erfolgreich war (Statuscode 200)
+			if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+				// Die Antwort verarbeiten
+				BingMapsApiResponse responseBody = response.getBody();
 
-			var result = responseBody.resourceSets().stream().findAny();
+				var result = responseBody.resourceSets().stream().findAny();
 
-			if (!result.isEmpty() && result.get().estimatedTotal() > 0) {
-				return result.get().resources().get(0);
+				if (!result.isEmpty() && result.get().estimatedTotal() > 0) {
+					return result.get().resources().get(0);
+				}
+
+			} else {
+				log.error("Fehler bei der Anfrage: " + response.getStatusCode());
+
 			}
-
-		} else {
-			log.error("Fehler bei der Anfrage: " + response.getStatusCode());
-
+		} catch (Exception ex) {
+			log.error("Fehler bei der Anfrage: " + ex.getMessage());
 		}
 
 		return null;
 	}
 
-	private static String encodeUriComponent(String component)  {
+	private static String encodeUriComponent(String component) {
 		return component.replaceAll("[^a-zA-Z0-9 ]", "");
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.lebe.backend.api.dto.CommonResponse;
 import de.lebe.backend.api.dto.CustomerProposalRequest;
 import de.lebe.backend.domain.MSubmissionResult;
 import de.lebe.backend.process.ProcessSimpleCustomerRfp;
@@ -23,7 +24,7 @@ public class ApiSimpleCustomerRfp {
 	private RequestCacheService requestCacheService;
 
 	@PostMapping("/customer/rfp")
-	public void submitSimpleCustomerRpf(@RequestBody CustomerProposalRequest request, HttpServletRequest httpRequest) {
+	public CommonResponse submitSimpleCustomerRpf(@RequestBody CustomerProposalRequest request, HttpServletRequest httpRequest) {
 		
 		String clientIp = httpRequest.getRemoteAddr();
 		
@@ -32,6 +33,8 @@ public class ApiSimpleCustomerRfp {
 		}
 		
 		process.processRfp(request);
+		
+		return new CommonResponse("200", null);
 	}
 	
 	@GetMapping("/advisor/rfp/approve")
