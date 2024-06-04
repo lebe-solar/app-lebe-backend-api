@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.azure.cosmos.models.PartitionKey;
+
 import de.lebe.backend.domain.MCustomerRfp;
 import de.lebe.backend.domain.RepositoryCustomerRfp;
 
@@ -33,5 +35,14 @@ public class AdvisorRfpOverview {
 
 		model.addAttribute("user", rfp);
 		return "details-rfp";
+	}
+	
+	@GetMapping("/advisor/delete/{id}")
+	public String deleteById(@PathVariable("id") String id, Model model) {
+		
+		rpfRepository.deleteAll(rpfRepository.findAll(new PartitionKey(id)));
+		
+		
+		return "redirect:/advisor/rfp";
 	}
 }
