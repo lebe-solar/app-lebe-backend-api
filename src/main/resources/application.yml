@@ -1,4 +1,5 @@
 solar:
+  baseurl: ${lebe-url}
   order:
     maps:
       client:

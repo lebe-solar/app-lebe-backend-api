@@ -34,6 +34,9 @@ public class MailService {
 
 	@Autowired
 	private GraphServiceClient client;
+	
+	@Value("${solar.baseurl}")
+	private String baseUrl;
 
 	/**
 	 * { "gender": 1,
@@ -62,9 +65,9 @@ public class MailService {
 
 		Context context = new Context();
 		context.setVariable("acceptUrl",
-				"http://localhost:8080/advisor/rfp/approve?approvalToken=" + id);
+				baseUrl + "/advisor/rfp/approve?approvalToken=" + id);
 		context.setVariable("rejectUrl",
-				"http://localhost:8080/advisor/rfp/reject?approvalToken=" + id);
+				baseUrl + "/advisor/rfp/reject?approvalToken=" + id);
 
 		context.setVariable("header",
 				customerRfp.getCustomer().getName() + " " + customerRfp.getCustomer().getLastname());

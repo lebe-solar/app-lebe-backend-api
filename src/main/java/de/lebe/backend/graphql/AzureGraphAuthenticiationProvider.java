@@ -3,9 +3,6 @@ package de.lebe.backend.graphql;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
-import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -50,13 +47,5 @@ public class AzureGraphAuthenticiationProvider {
 		
 		return new GraphServiceClient(credential, scopes);
 		
-	}
-	
-	public String convertDERtoPEM(byte[] certBytes) throws Exception {
-	    CertificateFactory factory = CertificateFactory.getInstance("X.509");
-	    X509Certificate certificate = (X509Certificate) factory.generateCertificate(new ByteArrayInputStream(certBytes));
-	    Base64.Encoder encoder = Base64.getMimeEncoder(64, "\n".getBytes());
-	    String encodedCertText = new String(encoder.encode(certificate.getEncoded()));
-	    return "-----BEGIN CERTIFICATE-----\n" + encodedCertText + "-----END CERTIFICATE-----\n";
 	}
 }

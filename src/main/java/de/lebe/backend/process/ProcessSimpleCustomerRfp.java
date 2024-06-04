@@ -1,10 +1,12 @@
 package de.lebe.backend.process;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Controller;
 
 import com.azure.cosmos.models.PartitionKey;
@@ -39,6 +41,9 @@ public class ProcessSimpleCustomerRfp {
 	@Autowired
 	private SevDeskOrderPlacementService orderService;
 	
+	@Autowired
+	private ThreadPoolTaskScheduler scheduler;
+	
 	public void processRfp(CustomerProposalRequest rfp) {
 		
 		var address = bingService.formatAddress(rfp.streetWithHnr(), rfp.city(), rfp.postalCode());
@@ -52,8 +57,15 @@ public class ProcessSimpleCustomerRfp {
 		
 		rpfRepository.save(mRfP);
 		
-		// Second we send out an email to the LeBe advisor
-		mailService.sendRfpMailToBusiness(mRfP, address.getImage());
+		scheduler.schedule(new Runnable() {
+			
+			@Override
+			public void run() {
+				// Second we send out an email to the LeBe advisor
+				mailService.sendRfpMailToBusiness(mRfP, address.getImage());
+			}
+		}, Instant.now());
+		
 	}
 	
 	public void rejectCustomerRfp(String identificationToken) {
@@ -77,7 +89,7 @@ public class ProcessSimpleCustomerRfp {
 		}
 		var customer = lastSubmittion.get().getCustomer();
 		
-		String orderNumber = "test-12323";// orderService.getOrderNumber();
+		String orderNumber = orderService.getOrderNumber();
 		
 		SevDeskContactNatPerson sevDeskContact = new SevDeskContactNatPerson();
 		sevDeskContact.setGender("M");
