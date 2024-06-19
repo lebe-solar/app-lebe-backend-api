@@ -3,6 +3,10 @@ package de.lebe.backend.util;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;
@@ -37,4 +41,9 @@ public class RequestCacheService {
             return false;
         }
     }
+
+	public void remove(@NotBlank @Email String email, String clientIp) {
+		String key = clientIp + ":" + email;
+		requestCache.invalidate(key);
+	}
 }

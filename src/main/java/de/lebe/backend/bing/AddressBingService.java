@@ -33,7 +33,7 @@ public class AddressBingService {
 
 		byte[] image = null;
 
-		if (match != null) {
+		if (match != null && match.address().postalCode().equalsIgnoreCase(postalCode) && match.address().addressLine() != null) {
 
 			image = retrieveAerial(match.point().coordinates().get(0), match.point().coordinates().get(1));
 

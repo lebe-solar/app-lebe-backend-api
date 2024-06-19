@@ -1,5 +1,8 @@
 package de.lebe.backend.api.dto;
 
+import de.lebe.backend.api.ValidAddress;
+import de.lebe.backend.api.ValidEmail;
+import de.lebe.backend.api.ValidMobile;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -8,9 +11,9 @@ public record CustomerProposalRequest(
         int gender,
         @NotBlank String firstname,
         @NotBlank String lastname,
-        @NotBlank String mobile,
-        @NotBlank @Email String email,
-        @NotBlank String streetWithHnr,
+        @NotBlank @ValidMobile String mobile,
+        @NotBlank @Email @ValidEmail(message = "Ungültige E-Mail-Adresse") String email,
+        @NotBlank  @ValidAddress String streetWithHnr,
         @NotBlank String postalCode,
         @NotBlank String city,
 

@@ -1,6 +1,5 @@
 package de.lebe.backend.process;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -44,6 +43,7 @@ public class ProcessSimpleCustomerRfp {
 	@Autowired
 	private ThreadPoolTaskScheduler scheduler;
 	
+	
 	public void processRfp(CustomerProposalRequest rfp) {
 		
 		var address = bingService.formatAddress(rfp.streetWithHnr(), rfp.city(), rfp.postalCode());
@@ -55,16 +55,16 @@ public class ProcessSimpleCustomerRfp {
 		// First we store the rfp in the cosmos database
 		MCustomerRfp mRfP = MCustomerRfpMapper.mapFromCustomerRequest(rfp, address);
 		
-		rpfRepository.save(mRfP);
-		
-		scheduler.schedule(new Runnable() {
-			
-			@Override
-			public void run() {
-				// Second we send out an email to the LeBe advisor
-				mailService.sendRfpMailToBusiness(mRfP, address.getImage());
-			}
-		}, Instant.now());
+//		rpfRepository.save(mRfP);
+//		
+//		scheduler.schedule(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				// Second we send out an email to the LeBe advisor
+//				mailService.sendRfpMailToBusiness(mRfP, address.getImage());
+//			}
+//		}, Instant.now());
 		
 	}
 	
