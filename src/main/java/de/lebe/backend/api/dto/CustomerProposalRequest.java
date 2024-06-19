@@ -14,8 +14,8 @@ public record CustomerProposalRequest(
         @NotBlank @ValidMobile String mobile,
         @NotBlank @Email @ValidEmail(message = "Ungültige E-Mail-Adresse") String email,
         @NotBlank  @ValidAddress String streetWithHnr,
-        @NotBlank String postalCode,
-        @NotBlank String city,
+        @NotBlank(message = "Bitte geben Sie eine PLZ an") String postalCode,
+        @NotBlank(message = "Bitte geben Sie eine Stadt an") String city,
 
         String pvPower,
         String energieStorageCapacity,

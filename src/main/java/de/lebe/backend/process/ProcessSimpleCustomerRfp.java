@@ -1,5 +1,6 @@
 package de.lebe.backend.process;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -52,19 +53,23 @@ public class ProcessSimpleCustomerRfp {
 			throw new IllegalArgumentException("Die Addresse konnte nicht gefunden werden.");
 		}
 		
+		
 		// First we store the rfp in the cosmos database
 		MCustomerRfp mRfP = MCustomerRfpMapper.mapFromCustomerRequest(rfp, address);
 		
-//		rpfRepository.save(mRfP);
-//		
-//		scheduler.schedule(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				// Second we send out an email to the LeBe advisor
-//				mailService.sendRfpMailToBusiness(mRfP, address.getImage());
-//			}
-//		}, Instant.now());
+		mRfP.getSolarSystem().setEnergieStorageCapacity("0");
+		mRfP.getSolarSystem().setType("0");
+		
+		rpfRepository.save(mRfP);
+		
+		scheduler.schedule(new Runnable() {
+			
+			@Override
+			public void run() {
+				// Second we send out an email to the LeBe advisor
+				mailService.sendRfpMailToBusiness(mRfP, address.getImage());
+			}
+		}, Instant.now());
 		
 	}
 	

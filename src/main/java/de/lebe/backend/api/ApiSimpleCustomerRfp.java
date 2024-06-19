@@ -33,13 +33,6 @@ public class ApiSimpleCustomerRfp {
 	@PostMapping("/customer/rfp")
 	public CommonResponse submitSimpleCustomerRpf(@RequestBody CustomerProposalRequest request,
 			HttpServletRequest httpRequest) {
-
-		String clientIp = httpRequest.getRemoteAddr();
-
-		if (requestCacheService.isDuplicateRequest(request.email(), clientIp)) {
-			throw new IllegalArgumentException(
-					"Es scheint, als ob wir bereits eine Anfrage von dieser E-Mail-Adresse erhalten haben. Bitte überprüfen Sie Ihre Angaben und versuchen Sie es erneut.");
-		}
 		
 		Set<ConstraintViolation<CustomerProposalRequest>> violations = validator.validate(request);
         if (!violations.isEmpty()) {
@@ -49,6 +42,14 @@ public class ApiSimpleCustomerRfp {
             }
             throw new IllegalArgumentException(errors.toString());
         }
+
+		String clientIp = httpRequest.getRemoteAddr();
+
+		if (requestCacheService.isDuplicateRequest(request.email(), clientIp)) {
+			throw new IllegalArgumentException(
+					"Es scheint, als ob wir bereits eine Anfrage von dieser E-Mail-Adresse erhalten haben. Bitte überprüfen Sie Ihre Angaben und versuchen Sie es erneut.");
+		}
+		
 
 		try {
 			process.processRfp(request);
