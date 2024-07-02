@@ -125,6 +125,15 @@ public class ProcessSimpleCustomerRfp {
 		
 		orderService.createOrderForRfp(orderNumber, sevDeskContact, rfp);
 		
+		scheduler.schedule(new Runnable() {
+			
+			@Override
+			public void run() {
+				// Second we send out an email to the LeBe customer
+				mailService.sendRfpApprovalMailToCustomer(lastSubmittion.get());
+			}
+		}, Instant.now());
+		
 		return new MSubmissionResult(lastSubmittion.get(), sevDeskContact.getCustomerNumber(), orderNumber);
 	}
 

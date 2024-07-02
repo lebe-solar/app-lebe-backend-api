@@ -37,6 +37,64 @@ public class MailService {
 	
 	@Value("${solar.baseurl}")
 	private String baseUrl;
+	
+	
+	public void sendRfpApprovalMailToCustomer(MCustomerRfp customerRfp) {
+		Context context = new Context();
+		Message message = new Message();
+		message.setSubject("LeBe Solarenergie - Empfangsbestätigung");
+		
+		context.setVariable("anrede",
+				customerRfp.getCustomer().getName() + " " + customerRfp.getCustomer().getLastname());
+		
+		ItemBody body = new ItemBody();
+		body.setContentType(BodyType.Html);
+		body.setContent(templateEngine.process("email_confirmation_customer", context));
+		message.setBody(body);
+
+		var email = new SendMailPostRequestBody();
+
+		// TO
+		LinkedList<Recipient> toRecipients = new LinkedList<Recipient>();
+		Recipient recipient = new Recipient();
+		EmailAddress emailAddress = new EmailAddress();
+		emailAddress.setAddress(customerRfp.getCustomerEmail());
+		recipient.setEmailAddress(emailAddress);
+		toRecipients.add(recipient);
+		message.setToRecipients(toRecipients);
+
+		// CC
+		LinkedList<Recipient> ccRecipients = new LinkedList<Recipient>();
+		Recipient recipient1 = new Recipient();
+		EmailAddress emailAddress1 = new EmailAddress();
+		emailAddress1.setAddress("kontakt@lebe-solarenergie.de");
+		recipient1.setEmailAddress(emailAddress1);
+		ccRecipients.add(recipient1);
+		message.setCcRecipients(ccRecipients);
+		
+		// BCC
+		LinkedList<Recipient> bccRecipients = new LinkedList<Recipient>();
+		Recipient recipient2 = new Recipient();
+		EmailAddress emailAddress2 = new EmailAddress();
+		emailAddress2.setAddress("s.leu@lebe-solarenergie.de");
+		recipient2.setEmailAddress(emailAddress2);
+		bccRecipients.add(recipient2);
+		message.setBccRecipients(bccRecipients);
+
+		email.setSaveToSentItems(false);
+		email.setMessage(message);
+
+		var users = client.users().get().getValue();
+
+		var user = users.stream().filter(u -> {
+			String mail = u.getUserPrincipalName();
+
+			return StringUtils.containsIgnoreCase(mail, "kontakt");
+		}).findFirst().orElseGet(() -> users.get(0));
+
+		client.users().byUserId(user.getId()).sendMail().post(email);
+	}
+	
 
 	/**
 	 * { "gender": 1,
