@@ -3,6 +3,7 @@ package de.lebe.backend;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<CommonResponse> handleException(Exception ex) {
 		LoggerFactory.getLogger(GlobalExceptionHandler.class).error(ex.getMessage());
+		LoggerFactory.getLogger(GlobalExceptionHandler.class).error(ExceptionUtils.getStackTrace(ex));
 		return new ResponseEntity<>(new CommonResponse("500", ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

@@ -9,10 +9,15 @@ solar:
       client:
         sevDesk: ${lebe-sevdesk-api}
         lebe: ${lebe-sevdesk-key}
-spring.cloud.azure.keyvault.secret.property-sources[0].endpoint: https://vault-lebe-backend.vault.azure.net/                      
+spring.cloud.azure.keyvault.secret.property-sources[0].endpoint: https://vault-lebe-backend.vault.azure.net/     
+
 spring:
   application:
     name: app-lebe-backend-api
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB    
   cloud:
     azure:
       keyvault:
@@ -22,6 +27,11 @@ spring:
         database: ${cosmos-database}
         endpoint: ${cosmos-endpoint}
         key: ${cosmos-key}
+      storage:
+        blob:
+          account-name: lebecustomerdocuments
+          account-key: ${storage-account-key}
+          endpoint: ${storage-account-endpoint}
   mail:
     username: ${lebe-email}
   security:

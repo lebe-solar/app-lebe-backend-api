@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Datei-Upload</title>
+</head>
+<body>
+    <h1>Datei-Upload zu Azure Blob Storage</h1>
+
+    <!-- Anzeigen von Validierungsfehlern -->
+
+    <form th:action="@{/customer/upload}" th:object="${fileUploadDTO}" method="post" enctype="multipart/form-data">
+        <label for="email">E-Mail:</label>
+        <input type="email" id="email" name="email" th:field="*{email}" required />
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Ungültige E-Mail</div>
+        
+        <br>
+
+        <label for="file">Datei hochladen:</label>
+        <input type="file" id="file" name="file" th:field="*{file}" required />
+        <div th:if="${#fields.hasErrors('file')}" th:errors="*{file}">Datei ist erforderlich</div>
+        
+        <br>
+
+        <button type="submit">Hochladen</button>
+    </form>
+</body>
+</html>
