@@ -51,7 +51,11 @@ public class SecurityConfig {
 	    CorsConfiguration customer = new CorsConfiguration();
 	    customer.setAllowedOrigins(Arrays.asList("http://localhost:4001", "https://lebe-solarenergie.de"
 	    		, "https://lebesolarenergie.de"
-	    		, "https://lebesolar.de"));
+	    		, "https://lebesolar.de",
+	    		"https://*.app.github.dev"));
+	    
+	    
+	    
 	    customer.setAllowedMethods(Arrays.asList("*"));
 	    customer.setAllowedHeaders(Arrays.asList("*"));
 	    source.registerCorsConfiguration("/customer/**", configuration);

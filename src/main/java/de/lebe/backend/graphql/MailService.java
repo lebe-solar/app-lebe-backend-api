@@ -18,6 +18,7 @@ import com.microsoft.graph.models.Recipient;
 import com.microsoft.graph.serviceclient.GraphServiceClient;
 import com.microsoft.graph.users.item.sendmail.SendMailPostRequestBody;
 
+import de.lebe.backend.api.v2.PrivateCustomerPVRequest;
 import de.lebe.backend.domain.MCustomerRfp;
 import de.lebe.backend.mapper.MCustomerRfpMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,8 @@ public class MailService {
 	
 	@Value("${solar.baseurl}")
 	private String baseUrl;
+	
+
 	
 	
 	public void sendRfpApprovalMailToCustomer(MCustomerRfp customerRfp) {
