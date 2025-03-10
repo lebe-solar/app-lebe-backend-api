@@ -1,8 +1,8 @@
 package de.lebe.backend.api.v2;
 
+import java.util.List;
+
 public record Appointment(
-	    String phoneAppointment,
-	    String inPersonAppointment,
-	    String deliveryAppointment,
+	    List<String> selectedProducts,
 	    String message
 	) {}

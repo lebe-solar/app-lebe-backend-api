@@ -13,12 +13,16 @@ import org.apache.tika.sax.BodyContentHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.xml.sax.SAXException;
 
@@ -33,6 +37,9 @@ import jakarta.validation.Validator;
 public class FileUploadController {
 
 	private static Logger logger = LoggerFactory.getLogger(FileUploadController.class);
+	
+	@Value("${solar.apikey}")
+	String apiKey;
 	
 	private static final List<String> ALLOWED_TYPES = Arrays.asList(
 	        "application/pdf", // PDF
@@ -56,7 +63,13 @@ public class FileUploadController {
     }
     
     @PostMapping("/customer/upload")
-    public CommonResponse customerFileUpload(@ModelAttribute FileUploadDTO fileUploadDTO) {
+    @ResponseBody
+    public CommonResponse customerFileUpload(@RequestHeader("x-api-key") String code,
+    		@ModelAttribute FileUploadDTO fileUploadDTO) {
+    	
+    	if(!apiKey.equals(code)) {
+    		throw new AccessDeniedException("Invalid apikey");
+    	}
         
     	Set<ConstraintViolation<FileUploadDTO>> violations = validator.validate(fileUploadDTO);
         if (!violations.isEmpty()) {

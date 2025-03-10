@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: #3C3C3B;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #FFFFFF;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #9FB2A1;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #9FB2A1;
+            padding: 10px;
+            color: white;
+            text-align: left;
+            position: relative;
+        }
+        .header img {
+            float: right;
+            margin-right: 5px;
+            height: 50px;
+        }
+        .title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .section {
+            background-color: #F1F0EC;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #E0E0E0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #9FB2A1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Neue PV-Anfrage von <span th:text="${contact.companyName}"></span></h2>
+        </div>
+		
+		<div class="title">Nachricht</div>
+        <div class="section">         
+            <p><span th:text="${system.message}"></span></p>
+        </div>
+		
+		<div class="title">Firma</div>
+        <div class="section">    
+            <p><strong><span th:text="${contact.companyName}"></span></strong></p>
+            <p><span th:text="${contact.street}"></span></p>
+            <p><span th:text="${contact.postalCode}"></span> <span th:text="${contact.place}"></span>, <span th:text="${contact.country}"></span></p>
+        </div>       
+        
+        <div class="title">Ansprechpartner</div>
+        <div class="section">    
+            <p><strong><span th:text="${contact.gender}"></span></strong> <span th:text="${contact.firstname}"></span> <span th:text="${contact.lastname}"></span></p>
+            <p><span th:text="${contact.email}"></span></p>
+            <p><span th:text="${contact.mobile}"></span></p>
+        </div> 
+        
+        <div class="title">Systemdetails</div>
+        <div class="section">
+			<p><strong>Gewünscht:</strong> <span th:text="${buildingType}"></span></p>
+            <p><strong>Installationsdatum:</strong> <span th:text="${system.dateOfInstallation}"></span></p>
+            <p><strong>Deadline:</strong> <span th:text="${system.deadline}"></span></p>
+            <p><strong>Erforderliche PV:</strong> <span th:text="${system.requiredPV}"></span></p>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2025 Solarenergie GmbH</p>
+        </div>
+    </div>
+</body>
+</html>

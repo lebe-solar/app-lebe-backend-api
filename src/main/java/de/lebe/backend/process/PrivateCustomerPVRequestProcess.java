@@ -3,6 +3,7 @@ package de.lebe.backend.process;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.lebe.backend.api.v2.ExistingCustomerMessage;
 import de.lebe.backend.api.v2.PrivateCustomerPVRequest;
 import de.lebe.backend.bing.AddressBingService;
 import de.lebe.backend.bing.MAddressFormatted;
@@ -16,6 +17,13 @@ public class PrivateCustomerPVRequestProcess {
 
 	@Autowired
 	private AddressBingService bingService;
+	
+	public void sendMessageToAdvisor(ExistingCustomerMessage message) {
+
+		mail.sendMessageMailToBusiness(message);
+
+	}
+
 
 	public void sendRequestToAdvisor(PrivateCustomerPVRequest request) {
 

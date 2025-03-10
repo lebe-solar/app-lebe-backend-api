@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <style>
+    <!--
+    /* Font Definitions */
+    @font-face {
+      font-family: Wingdings;
+      panose-1: 5 0 0 0 0 0 0 0 0 0;
+      mso-font-charset: 2;
+      mso-generic-font-family: auto;
+      mso-font-pitch: variable;
+      mso-font-signature: 0 268435456 0 0 -2147483648 0;
+    }
+
+    @font-face {
+      font-family: "Cambria Math";
+      panose-1: 2 4 5 3 5 4 6 3 2 4;
+      mso-font-charset: 0;
+      mso-generic-font-family: roman;
+      mso-font-pitch: variable;
+      mso-font-signature: -536869121 1107305727 33554432 0 415 0;
+    }
+
+    @font-face {
+      font-family: Calibri;
+      panose-1: 2 15 5 2 2 2 4 3 2 4;
+      mso-font-charset: 0;
+      mso-generic-font-family: swiss;
+      mso-font-pitch: variable;
+      mso-font-signature: -469750017 -1040178053 9 0 511 0;
+    }
+
+    /* Style Definitions */
+    p.MsoNormal,
+    li.MsoNormal,
+    div.MsoNormal {
+      mso-style-unhide: no;
+      mso-style-qformat: yes;
+      mso-style-parent: "";
+      margin: 0cm;
+      mso-pagination: widow-orphan;
+      font-size: 11.0pt;
+      font-family: "Calibri", sans-serif;
+      mso-fareast-font-family: Calibri;
+      mso-fareast-theme-font: minor-latin;
+    }
+
+    h1 {
+      mso-style-priority: 9;
+      mso-style-unhide: no;
+      mso-style-qformat: yes;
+      mso-style-link: "Überschrift 1 Zchn";
+      mso-margin-top-alt: auto;
+      margin-right: 0cm;
+      mso-margin-bottom-alt: auto;
+      margin-left: 0cm;
+      mso-pagination: widow-orphan;
+      mso-outline-level: 1;
+      font-size: 24.0pt;
+      font-family: "Calibri", sans-serif;
+      mso-fareast-font-family: Calibri;
+      mso-fareast-theme-font: minor-latin;
+      font-weight: bold;
+    }
+
+    h2 {
+      mso-style-priority: 9;
+      mso-style-unhide: no;
+      mso-style-qformat: yes;
+      mso-style-link: "Überschrift 2 Zchn";
+      mso-margin-top-alt: auto;
+      margin-right: 0cm;
+      mso-margin-bottom-alt: auto;
+      margin-left: 0cm;
+      mso-pagination: widow-orphan;
+      mso-outline-level: 2;
+      font-size: 18.0pt;
+      font-family: "Calibri", sans-serif;
+      mso-fareast-font-family: Calibri;
+      mso-fareast-theme-font: minor-latin;
+      font-weight: bold;
+    }
+
+    a:link,
+    span.MsoHyperlink {
+      mso-style-priority: 99;
+      color: blue;
+      text-decoration: underline;
+      text-underline: single;
+    }
+
+    a:visited,
+    span.MsoHyperlinkFollowed {
+      mso-style-noshow: yes;
+      mso-style-priority: 99;
+      color: purple;
+      text-decoration: underline;
+      text-underline: single;
+    }
+
+    p {
+      mso-style-noshow: yes;
+      mso-style-priority: 99;
+      mso-margin-top-alt: auto;
+      margin-right: 0cm;
+      mso-margin-bottom-alt: auto;
+      margin-left: 0cm;
+      mso-pagination: widow-orphan;
+      font-size: 11.0pt;
+      font-family: "Calibri", sans-serif;
+      mso-fareast-font-family: Calibri;
+      mso-fareast-theme-font: minor-latin;
+    }
+
+    p.msonormal0,
+    li.msonormal0,
+    div.msonormal0 {
+      mso-style-name: msonormal;
+      mso-style-unhide: no;
+      mso-margin-top-alt: auto;
+      margin-right: 0cm;
+      mso-margin-bottom-alt: auto;
+      margin-left: 0cm;
+      mso-pagination: widow-orphan;
+      font-size: 11.0pt;
+      font-family: "Calibri", sans-serif;
+      mso-fareast-font-family: Calibri;
+      mso-fareast-theme-font: minor-latin;
+    }
+
+    p.externalclass,
+    li.externalclass,
+    div.externalclass {
+      mso-style-name: externalclass;
+      mso-style-unhide: no;
+      mso-margin-top-alt: auto;
+      margin-right: 0cm;
+      mso-margin-bottom-alt: auto;
+      margin-left: 0cm;
+      mso-pagination: widow-orphan;
+      font-size: 11.0pt;
+      font-family: "Calibri", sans-serif;
+      mso-fareast-font-family: Calibri;
+      mso-fareast-theme-font: minor-latin;
+    }
+
+    p.readmsgbody,
+    li.readmsgbody,
+    div.readmsgbody {
+      mso-style-name: readmsgbody;
+      mso-style-unhide: no;
+      mso-margin-top-alt: auto;
+      margin-right: 0cm;
+      mso-margin-bottom-alt: auto;
+      margin-left: 0cm;
+      mso-pagination: widow-orphan;
+      font-size: 11.0pt;
+      font-family: "Calibri", sans-serif;
+      mso-fareast-font-family: Calibri;
+      mso-fareast-theme-font: minor-latin;
+    }
+
+    p.fuinternbody,
+    li.fuinternbody,
+    div.fuinternbody {
+      mso-style-name: fuintern_body;
+      mso-style-unhide: no;
+      margin: .75pt;
+      mso-pagination: widow-orphan;
+      font-size: 11.0pt;
+      font-family: "Calibri", sans-serif;
+      mso-fareast-font-family: Calibri;
+      mso-fareast-theme-font: minor-latin;
+    }
+
+    span.berschrift1Zchn {
+      mso-style-name: "Überschrift 1 Zchn";
+      mso-style-priority: 9;
+      mso-style-unhide: no;
+      mso-style-locked: yes;
+      mso-style-link: "Überschrift 1";
+      mso-ansi-font-size: 16.0pt;
+      mso-bidi-font-size: 16.0pt;
+      font-family: "Calibri Light", sans-serif;
+      mso-ascii-font-family: "Calibri Light";
+      mso-ascii-theme-font: major-latin;
+      mso-fareast-font-family: "Times New Roman";
+      mso-fareast-theme-font: major-fareast;
+      mso-hansi-font-family: "Calibri Light";
+      mso-hansi-theme-font: major-latin;
+      mso-bidi-font-family: "Times New Roman";
+      mso-bidi-theme-font: major-bidi;
+      color: #2F5496;
+      mso-themecolor: accent1;
+      mso-themeshade: 191;
+    }
+
+    span.berschrift2Zchn {
+      mso-style-name: "Überschrift 2 Zchn";
+      mso-style-noshow: yes;
+      mso-style-priority: 9;
+      mso-style-unhide: no;
+      mso-style-locked: yes;
+      mso-style-link: "Überschrift 2";
+      mso-ansi-font-size: 13.0pt;
+      mso-bidi-font-size: 13.0pt;
+      font-family: "Calibri Light", sans-serif;
+      mso-ascii-font-family: "Calibri Light";
+      mso-ascii-theme-font: major-latin;
+      mso-fareast-font-family: "Times New Roman";
+      mso-fareast-theme-font: major-fareast;
+      mso-hansi-font-family: "Calibri Light";
+      mso-hansi-theme-font: major-latin;
+      mso-bidi-font-family: "Times New Roman";
+      mso-bidi-theme-font: major-bidi;
+      color: #2F5496;
+      mso-themecolor: accent1;
+      mso-themeshade: 191;
+    }
+
+    p.fudisclaimer,
+    li.fudisclaimer,
+    div.fudisclaimer {
+      mso-style-name: fu_disclaimer;
+      mso-style-unhide: no;
+      mso-margin-top-alt: auto;
+      margin-right: 0cm;
+      mso-margin-bottom-alt: auto;
+      margin-left: 0cm;
+      mso-pagination: widow-orphan;
+      font-size: 11.0pt;
+      font-family: "Calibri", sans-serif;
+      mso-fareast-font-family: Calibri;
+      mso-fareast-theme-font: minor-latin;
+    }
+
+    span.futext {
+      mso-style-name: fu_text;
+      mso-style-unhide: no;
+    }
+
+    .MsoChpDefault {
+      mso-style-type: export-only;
+      mso-default-props: yes;
+      font-size: 10.0pt;
+      mso-ansi-font-size: 10.0pt;
+      mso-bidi-font-size: 10.0pt;
+    }
+
+    @page WordSection1 {
+      size: 612.0pt 792.0pt;
+      margin: 70.85pt 70.85pt 2.0cm 70.85pt;
+      mso-header-margin: 36.0pt;
+      mso-footer-margin: 36.0pt;
+      mso-paper-source: 0;
+    }
+
+    div.WordSection1 {
+      page: WordSection1;
+    }
+
+    /* List Definitions */
+    @list l0 {
+      mso-list-id: 1569615239;
+      mso-list-template-ids: 872730078;
+    }
+
+    @list l0:level1 {
+      mso-level-number-format: bullet;
+      mso-level-text: ;
+      mso-level-tab-stop: 36.0pt;
+      mso-level-number-position: left;
+      text-indent: -18.0pt;
+      mso-ansi-font-size: 10.0pt;
+      font-family: Symbol;
+    }
+
+    @list l0:level2 {
+      mso-level-number-format: bullet;
+      mso-level-text: o;
+      mso-level-tab-stop: 72.0pt;
+      mso-level-number-position: left;
+      text-indent: -18.0pt;
+      mso-ansi-font-size: 10.0pt;
+      font-family: "Courier New";
+      mso-bidi-font-family: "Times New Roman";
+    }
+
+    @list l0:level3 {
+      mso-level-number-format: bullet;
+      mso-level-text: ;
+      mso-level-tab-stop: 108.0pt;
+      mso-level-number-position: left;
+      text-indent: -18.0pt;
+      mso-ansi-font-size: 10.0pt;
+      font-family: Wingdings;
+    }
+
+    @list l0:level4 {
+      mso-level-number-format: bullet;
+      mso-level-text: ;
+      mso-level-tab-stop: 144.0pt;
+      mso-level-number-position: left;
+      text-indent: -18.0pt;
+      mso-ansi-font-size: 10.0pt;
+      font-family: Wingdings;
+    }
+
+    @list l0:level5 {
+      mso-level-number-format: bullet;
+      mso-level-text: ;
+      mso-level-tab-stop: 180.0pt;
+      mso-level-number-position: left;
+      text-indent: -18.0pt;
+      mso-ansi-font-size: 10.0pt;
+      font-family: Wingdings;
+    }
+
+    @list l0:level6 {
+      mso-level-number-format: bullet;
+      mso-level-text: ;
+      mso-level-tab-stop: 216.0pt;
+      mso-level-number-position: left;
+      text-indent: -18.0pt;
+      mso-ansi-font-size: 10.0pt;
+      font-family: Wingdings;
+    }
+
+    @list l0:level7 {
+      mso-level-number-format: bullet;
+      mso-level-text: ;
+      mso-level-tab-stop: 252.0pt;
+      mso-level-number-position: left;
+      text-indent: -18.0pt;
+      mso-ansi-font-size: 10.0pt;
+      font-family: Wingdings;
+    }
+
+    @list l0:level8 {
+      mso-level-number-format: bullet;
+      mso-level-text: ;
+      mso-level-tab-stop: 288.0pt;
+      mso-level-number-position: left;
+      text-indent: -18.0pt;
+      mso-ansi-font-size: 10.0pt;
+      font-family: Wingdings;
+    }
+
+    @list l0:level9 {
+      mso-level-number-format: bullet;
+      mso-level-text: ;
+      mso-level-tab-stop: 324.0pt;
+      mso-level-number-position: left;
+      text-indent: -18.0pt;
+      mso-ansi-font-size: 10.0pt;
+      font-family: Wingdings;
+    }
+
+    ol {
+      margin-bottom: 0cm;
+    }
+
+    ul {
+      margin-bottom: 0cm;
+    }
+    -->
+  </style>
+  <!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Normale Tabelle";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin:0cm;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;}
+</style>
+<![endif]-->
+</head>
+
+<body lang="DE" link="blue" vlink="purple">
+  <div class="WordSection1">
+    <div idblock="144340062" label="Root Container" flowparent="0" id="fuintern_block_root">
+      <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="100%" style="background:white;">
+        <tr>
+          <td valign="top">
+            <div align="center">
+              <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                  <td>
+                    <div idblock="144340070" label="Content" flowparent="0" id="fuintern_block_root-content">
+                      <div align="center">
+                        <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="660">
+                          <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+                            <td style="background:#9FB2A1;padding:10pt 0cm 15.0pt 0cm">
+                              <h2
+                                style="margin-top:0cm;margin-right:0cm;margin-bottom:9.0pt;margin-left:0cm;text-align:center;line-height:27.0pt;mso-line-height-rule:exactly">
+                                Neue PV-Anfrage von <span th:text="${contact.firstname}"></span> <span
+                                  th:text="${contact.lastname}"></span></h2>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+
+                      <div align="center">
+                        <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="660"
+                          style="width:495.0pt;border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm">
+                          <tbody>
+                            <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+                              <td style="background:#e3e3e3;padding:10pt 0cm 15.0pt 0cm">
+                                <div align="center">
+                                  <table>
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                          <strong>Angebotsanfrage:</strong> <span th:text="${offerTitle}"></span><br>
+                                          <a th:href="${offerLink}">Link zum Angebot</a>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div align="center">
+                        <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="660"
+                          style="width:495.0pt;border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm">
+                          <tbody>
+                            <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+                              <td style="background:#e3e3e3;padding:10pt 0cm 15.0pt 0cm">
+                                <div align="center">
+                                  <table>
+                                    <tbody>
+                                      <tr>
+                                        <td class="section">
+                                          <strong>Preis:</strong> <span th:text="${offerPrice}"></span><br>
+                                          <strong>Kondition:</strong> <span th:text="${offerConditions}"></span><br>
+                                          <strong>Gültig bis:</strong> <span th:text="${offerValidUntil}"></span>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+
+                      <div align="center">
+                        <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="660"
+                          style="width:495.0pt;border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm">
+                          <tbody>
+                            <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+                              <td style="background:#e3e3e3;padding:10pt 0cm 15.0pt 0cm">
+                                <div align="center">
+                                  <table>
+                                    <tbody>
+                                      <tr>
+                                        <td class="section">
+                                          <p>Nachricht:</p><br>
+                                          <span th:text="${message}"></span>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div align="center">
+                        <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="660"
+                          style="width:495.0pt;border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm">
+                          <tbody>
+                            <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+                              <td style="background:#e3e3e3;padding:10pt 0cm 15.0pt 0cm">
+                                <div align="center">
+                                  <table>
+                                    <tbody>
+                                      <tr>
+                                        <td class="section">
+                                          <p>Rechnungs- & Lieferadresse:</p><br>
+                                          <span th:text="${contact.gender}"></span> <span
+                                            th:text="${contact.firstname}"></span>
+                                          <span th:text="${contact.lastname}"></span><br>
+                                          <span th:text="${contact.address}"></span><br>
+                                          <span th:text="${contact.email}"></span><br>
+                                          <span th:text="${contact.mobile}"></span>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div align="center">
+                        <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="660"
+                          style="width:495.0pt;border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm">
+                          <tbody>
+                            <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+                              <td style="background:#e3e3e3;padding:10pt 0cm 15.0pt 0cm">
+                                <div align="center">
+                                  <table>
+                                    <tbody>
+                                      <tr>
+                                        <td class="section">
+                                          <p>Photovoltaikanlage</p>
+                                          <table>
+                                            <tr>
+                                              <td><strong><span th:text="${moduleQuantity}"></span>x</strong></td>
+                                              <td><strong>Solarmodul</strong></td>
+                                              <td><strong>€</strong></td>
+                                            </tr>
+                                            <tr>
+                                              <td></td>
+                                              <td><span th:text="${moduleName}">test</span></td>
+                                              <td></td>
+                                            </tr>
+
+                                            <tr>
+                                              <td><strong><span th:text="${batteryQuantity}"></span>x</strong></td>
+                                              <td><strong>Energiespeicher</strong></td>
+                                              <td><strong>€</strong></td>
+                                            </tr>
+                                            <tr>
+                                              <td></td>
+                                              <td><span th:text="${batteryName}">test</span></td>
+                                              <td></td>
+                                            </tr>
+
+                                            <tr>
+                                              <td><strong><span th:text="${inverterQuantity}"></span>x</strong></td>
+                                              <td><strong>Wechselrichter</strong></td>
+                                              <td><strong>€</strong></td>
+                                            </tr>
+                                            <tr>
+                                              <td></td>
+                                              <td><span th:text="${inverterName}">test</span></td>
+                                              <td></td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div align="center">
+                        <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="660"
+                          style="width:495.0pt;border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm">
+                          <tbody>
+                            <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+                              <td style="background:#e3e3e3;padding:10pt 0cm 15.0pt 0cm">
+                                <div align="center">
+                                  <table>
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                          <p>LeBe Montage-Paket:</p>
+                                          <table>
+                                            <tr th:each="item : ${inclusiveItems}">
+                                              <td>
+                                                <table>
+                                                  <tr>
+                                                    <td><strong><span th:text="${item.quantity}"></span>x</strong></td>
+                                                    <td><strong><span th:text="${item.name}"></span></strong></td>
+                                                    <td><strong>inkl.</strong></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td></td>
+                                                    <td colspan="3"><span th:text="${item.line1}"></span></td>
+                                                    <td></td>
+                                                  </tr>
+                                                  <tr th:if="${item.line2 != null}">
+                                                    <td></td>
+                                                    <td colspan="3"><span th:text="${item.line2}"></span></td>
+                                                    <td></td>
+                                                  </tr>
+                                                  <tr th:if="${item.line3 != null}">
+                                                    <td></td>
+                                                    <td colspan="3"><span th:text="${item.line3}"></span></td>
+                                                    <td></td>
+                                                  </tr>
+                                                  <tr th:if="${item.line4 != null}">
+                                                    <td></td>
+                                                    <td colspan="3"><span th:text="${item.line4}"></span></td>
+                                                    <td></td>
+                                                  </tr>
+                                                  <tr th:if="${item.line5 != null}">
+                                                    <td></td>
+                                                    <td colspan="3"><span th:text="${item.line5}"></span></td>
+                                                    <td></td>
+                                                  </tr>
+                                                </table>
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div align="center">
+                        <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="660"
+                          style="width:495.0pt;border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm">
+                          <tbody>
+                            <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+                              <td style="background:#ffffff;padding:10pt 0cm 15.0pt 0cm">
+                                <div align="center">
+                                  <table>
+                                    <tbody>
+                                      <tr>
+                                        <td class="footer">
+                                          <img th:src="'data:image/png;base64,' + ${base64EncodedImage}" alt="Logo">
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>

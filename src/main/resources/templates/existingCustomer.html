@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: #3C3C3B;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #FFFFFF;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #9FB2A1;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #9FB2A1;
+            padding: 10px;
+            color: white;
+            text-align: left;
+            position: relative;
+        }
+        .header img {
+            float: right;
+            margin-right: 5px;
+            height: 50px;
+        }
+        .title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .section {
+            background-color: #F1F0EC;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #E0E0E0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #9FB2A1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Neue PV-Anfrage von <span th:text="${firstname}"></span> <span th:text="${lastname}"></span></h2>
+        </div>
+		<div class="title">Nachricht</div>
+		<div class="section">         
+            <table>
+				<tr>
+					<td><span th:text="${message}"></span></td>
+				</tr>
+			</table>
+		</div>
+		
+        <!-- Rechnungs- & Lieferadresse -->
+        <div class="title">Von</div>
+        <div class="section">    
+            <p><strong><span th:text="${gender}"></span></strong> <span th:text="${firstname}"></span> <span th:text="${lastname}"></span></p>
+            <p><span th:text="${address}"></span></p>
+            <p><span th:text="${email}"></span></p>
+            <p><span th:text="${mobile}"></span></p>
+        </div> 
+    </div>
+</body>
+</html>
